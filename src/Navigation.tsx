@@ -3,7 +3,7 @@ import { Menu, Icon } from 'antd';
 
 const { SubMenu } = Menu;
 
-export class Navigation extends React.Component {
+export default class Navigation extends React.Component {
     state = {
         current: 'mail',
     };

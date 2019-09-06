@@ -1,9 +1,11 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import webpack from 'webpack';
 
 const config: webpack.Configuration = {
-    mode: 'production',
-    entry: './src/index.ts',
+    mode: 'development',
+    entry: './src/index.tsx',
     output: {
         path: __dirname + '/dist',
         filename: 'bundle.[hash].js',
@@ -15,10 +17,23 @@ const config: webpack.Configuration = {
                 exclude: /node_modules/,
                 use: ['babel-loader'],
             },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.scss$/,
+                use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader', 'sass-loader'],
+            },
         ],
     },
     resolve: {
-        extensions: ['.ts', '.js'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        plugins: [
+            new TsconfigPathsPlugin({
+                extensions: ['ts', 'tsx'],
+            }),
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -29,7 +44,7 @@ const config: webpack.Configuration = {
     devServer: {
         host: 'localhost',
         port: 8080,
-        open: true,
+        open: false,
         historyApiFallback: true,
     },
 };

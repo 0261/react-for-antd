@@ -1,14 +1,14 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { entry, output } from '../build/path';
+import { output, root } from '../build/path';
 import webpack from 'webpack';
 
 export const common: webpack.Configuration = {
-    entry: `${entry}/index.tsx`,
+    entry: `${root}/index.tsx`,
     output: {
         path: output,
-        filename: 'bundle.[hash].js',
+        filename: '[name].[hash].js',
     },
     module: {
         rules: [

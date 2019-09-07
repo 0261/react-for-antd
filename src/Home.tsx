@@ -9,6 +9,9 @@ const Home = () => {
             <p>
                 <Link to="/dynamic">Dynamic Page로 이동</Link>
             </p>
+            <p>
+                <Link to="/nav">Nav로 이동</Link>
+            </p>
         </Layout>
     );
 };

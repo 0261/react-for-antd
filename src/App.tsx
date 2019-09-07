@@ -1,15 +1,26 @@
 import './App.css';
 import React from 'react';
-import { Navigation } from './Navigation';
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
+import Navigation from './Navigation';
+import importedComponent from 'react-imported-component';
+
+import Home from './Home';
 
 interface Props {}
+const AsyncDynamicPage = importedComponent(() => import(/* webpackChunkName:'DynamicPage' */ './DynamicPage'));
+const AsyncNavigation = importedComponent(() => import(/* webpackChunkName:'Navigation' */ './Navigation'));
 
-// TODO: 라우터 추가할 것
 const App: React.FunctionComponent<Props> = () => {
     return (
-        <div className="App">
-            <Navigation />
-        </div>
+        <Router>
+            <div>
+                <Switch>
+                    <Route exact path="/" component={Home} />
+                    <Route exact path="/dynamic" component={AsyncDynamicPage} />
+                    <Route exact path="/nav" component={AsyncNavigation} />
+                </Switch>
+            </div>
+        </Router>
     );
 };
 

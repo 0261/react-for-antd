@@ -19,13 +19,13 @@ export const SiderFC: React.FunctionComponent<Props> = ({ matchUrl }) => {
                 <Menu.Item key='/users'>
                     <Link to='/users'>
                         <Icon type='user' />
-                        <span>User</span>
+                        <span>Users</span>
                     </Link>
                 </Menu.Item>
                 <Menu.Item key='/dashboards'>
                     <Link to='/dashboards'>
                         <Icon type='dashboard' />
-                        Dashboard
+                        Dashboards
                     </Link>
                 </Menu.Item>
                 <SubMenu

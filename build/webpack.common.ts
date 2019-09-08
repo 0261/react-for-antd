@@ -8,8 +8,10 @@ export const common: webpack.Configuration = {
     entry: `${root}/index.tsx`,
     output: {
         path: output,
+        chunkFilename: '[name].[hash].js',
         filename: '[name].[hash].js',
     },
+    target: 'web',
     module: {
         rules: [
             {
@@ -41,4 +43,22 @@ export const common: webpack.Configuration = {
             favicon: 'public/favicon.ico',
         }),
     ],
+    optimization: {
+        runtimeChunk: false,
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+                styles: {
+                    name: 'styles',
+                    test: /\.css$/,
+                    chunks: 'all',
+                    enforce: true,
+                },
+            },
+        },
+    },
 };

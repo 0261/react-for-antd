@@ -1,25 +1,35 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Icon } from 'antd';
+import { Link } from 'react-router-dom';
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
-export const SiderFC: React.FunctionComponent = () => {
+interface Props {
+    matchUrl: string;
+}
+export const SiderFC: React.FunctionComponent<Props> = ({ matchUrl }) => {
     const [collapsed, setCollapsed] = useState(false);
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={collapsed => setCollapsed(collapsed)}>
-            <div className='logo' />
-            <Menu theme='dark' defaultSelectedKeys={['1']} mode='inline'>
-                <Menu.Item key='1'>
-                    <Icon type='user' />
-                    <span>Information</span>
+            <Link to='/'>
+                <div className='logo' />
+            </Link>
+            <Menu theme='dark' defaultSelectedKeys={['/']} selectedKeys={[matchUrl]} mode='inline'>
+                <Menu.Item key='/users'>
+                    <Link to='/users'>
+                        <Icon type='user' />
+                        <span>Users</span>
+                    </Link>
                 </Menu.Item>
-                <Menu.Item key='2'>
-                    <Icon type='dashboard' />
-                    <span>Dashboards</span>
+                <Menu.Item key='/dashboards'>
+                    <Link to='/dashboards'>
+                        <Icon type='dashboard' />
+                        Dashboards
+                    </Link>
                 </Menu.Item>
                 <SubMenu
-                    key='sub2'
+                    key='sub1'
                     title={
                         <span>
                             <Icon type='pie-chart' />
@@ -37,9 +47,8 @@ export const SiderFC: React.FunctionComponent = () => {
                         <span>metric3</span>
                     </Menu.Item>
                 </SubMenu>
-
                 <SubMenu
-                    key='sub1'
+                    key='sub2'
                     title={
                         <span>
                             <Icon type='project' />

@@ -1,0 +1,1 @@
+export { LayoutFC } from './Layout';

@@ -1,0 +1,1 @@
+export { FooterFC } from './Footer';

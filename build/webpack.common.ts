@@ -17,15 +17,37 @@ export const common: webpack.Configuration = {
             {
                 test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
-                use: ['babel-loader'],
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            plugins: [['import', { libraryName: 'antd', style: 'css' }]],
+                        },
+                    },
+                ],
             },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.scss$/,
-                use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader', 'sass-loader'],
+                test: /\.scss/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                            },
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
+                    },
+                ],
             },
         ],
     },

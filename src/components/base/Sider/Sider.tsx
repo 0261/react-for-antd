@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
-
+import styles from './Sider.scss';
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -13,7 +13,7 @@ export const SiderFC: React.FunctionComponent<Props> = ({ matchUrl }) => {
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={collapsed => setCollapsed(collapsed)}>
             <Link to='/'>
-                <div className='logo' />
+                <div className={styles.logo} />
             </Link>
             <Menu theme='dark' defaultSelectedKeys={['/']} selectedKeys={[matchUrl]} mode='inline'>
                 <Menu.Item key='/users'>

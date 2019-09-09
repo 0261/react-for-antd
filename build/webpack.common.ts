@@ -24,8 +24,23 @@ export const common: webpack.Configuration = {
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.scss$/,
-                use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader', 'sass-loader'],
+                test: /\.scss/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                            },
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
+                    },
+                ],
             },
         ],
     },

@@ -1,1 +1,0 @@
-export { SiderFC } from './Sider';

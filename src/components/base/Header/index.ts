@@ -1,1 +1,0 @@
-export { HeaderFC } from './Header';

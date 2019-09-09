@@ -1,21 +1,21 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { SiderFC } from '../../base/Sider';
-import { FooterFC } from '../../base/Footer';
-import { HeaderFC } from '../../base/Header';
+import SiderBase from '../../base/Sider/Sider';
+import FooterBase from '../../base/Footer/Footer';
+import HeaderBase from '../../base/Header/Header';
+import ContentBase from '../../base/Content/Content';
+import styles from './Layout.scss';
 
-interface Props {
-    url: string;
-}
-export const LayoutFC: React.FunctionComponent<Props> = ({ children, url }) => {
+const LayoutFC: React.FunctionComponent = ({ children }) => {
     return (
-        <Layout style={{ minHeight: '100vh' }}>
-            <SiderFC matchUrl={url} />
+        <Layout className={styles.layout}>
+            <SiderBase />
             <Layout>
-                <HeaderFC />
-                {children}
-                <FooterFC />
+                <HeaderBase />
+                <ContentBase>{children}</ContentBase>
+                <FooterBase />
             </Layout>
         </Layout>
     );
 };
+export default LayoutFC;

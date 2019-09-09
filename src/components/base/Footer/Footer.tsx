@@ -1,7 +1,10 @@
 import React from 'react';
 import Layout from 'antd/lib/layout';
 const { Footer } = Layout;
+import styles from './Footer.scss';
 
-export const FooterFC: React.FunctionComponent = () => {
-    return <Footer style={{ textAlign: 'center' }}>Footer Here</Footer>;
+const FooterFC: React.FunctionComponent = () => {
+    return <Footer className={styles.footer}>Footer Here</Footer>;
 };
+
+export default FooterFC;

@@ -5,17 +5,14 @@ import styles from './Sider.scss';
 const { Sider } = Layout;
 const { SubMenu } = Menu;
 
-interface Props {
-    matchUrl: string;
-}
-export const SiderFC: React.FunctionComponent<Props> = ({ matchUrl }) => {
+const SiderFC: React.FunctionComponent = children => {
     const [collapsed, setCollapsed] = useState(false);
     return (
         <Sider collapsible collapsed={collapsed} onCollapse={collapsed => setCollapsed(collapsed)}>
             <Link to='/'>
                 <div className={styles.logo} />
             </Link>
-            <Menu theme='dark' defaultSelectedKeys={['/']} selectedKeys={[matchUrl]} mode='inline'>
+            <Menu theme='dark' defaultSelectedKeys={['/']} selectedKeys={['/']} mode='inline'>
                 <Menu.Item key='/users'>
                     <Link to='/users'>
                         <Icon type='user' />
@@ -64,3 +61,5 @@ export const SiderFC: React.FunctionComponent<Props> = ({ matchUrl }) => {
         </Sider>
     );
 };
+
+export default SiderFC;

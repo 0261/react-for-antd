@@ -17,7 +17,14 @@ export const common: webpack.Configuration = {
             {
                 test: /\.(ts|tsx)$/,
                 exclude: /node_modules/,
-                use: ['babel-loader'],
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            plugins: [['import', { libraryName: 'antd', style: 'css' }]],
+                        },
+                    },
+                ],
             },
             {
                 test: /\.css$/,

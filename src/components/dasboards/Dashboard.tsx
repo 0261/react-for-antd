@@ -1,10 +1,8 @@
 import React from 'react';
 import LayoutCommon from '../common/Layout/Layout';
 import styles from './Dashboard.scss';
-interface Props {
-    url: string;
-}
-const Dashboard: React.FunctionComponent<Props> = ({ children, url }) => {
+interface Props {}
+const Dashboard: React.FunctionComponent<Props> = ({ children }) => {
     return <div className={styles.dashboard}>{children}</div>;
 };
 

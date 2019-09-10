@@ -1,10 +1,13 @@
 import React from 'react';
-import Layout from 'antd/lib/layout';
 import LayoutCommon from '../common/Layout/Layout';
-const Dashboard: React.FunctionComponent = children => {
+import styles from './Dashboard.scss';
+interface Props {
+    url: string;
+}
+const Dashboard: React.FunctionComponent<Props> = ({ children, url }) => {
     return (
-        <LayoutCommon>
-            <div style={{ padding: 24, background: '#fff', minHeight: '100%' }}>This is Dashboards</div>
+        <LayoutCommon url={url}>
+            <div className={styles.dashboard}>{children}</div>
         </LayoutCommon>
     );
 };

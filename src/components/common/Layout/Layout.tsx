@@ -6,10 +6,14 @@ import HeaderBase from '../../base/Header/Header';
 import ContentBase from '../../base/Content/Content';
 import styles from './Layout.scss';
 
-const LayoutFC: React.FunctionComponent = ({ children }) => {
+interface Props {
+    url: string;
+}
+
+const LayoutFC: React.FunctionComponent<Props> = ({ children, url }) => {
     return (
         <Layout className={styles.layout}>
-            <SiderBase />
+            <SiderBase url={url} />
             <Layout>
                 <HeaderBase />
                 <ContentBase>{children}</ContentBase>

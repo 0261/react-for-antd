@@ -3,29 +3,30 @@ import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import styles from './Sider.scss';
 const { Sider } = Layout;
-const { SubMenu } = Menu;
-
-const SiderFC: React.FunctionComponent = children => {
+interface Props {
+    url: string;
+}
+const SiderFC: React.FunctionComponent<Props> = ({ children, url }) => {
     const [collapsed, setCollapsed] = useState(false);
     return (
-        <Sider collapsible collapsed={collapsed} onCollapse={collapsed => setCollapsed(collapsed)}>
-            <Link to='/'>
+        <Sider trigger={null} collapsible collapsed={collapsed}>
+            <Link to='/datasource'>
                 <div className={styles.logo} />
             </Link>
-            <Menu theme='dark' defaultSelectedKeys={['/']} selectedKeys={['/']} mode='inline'>
-                <Menu.Item key='/users'>
-                    <Link to='/users'>
-                        <Icon type='user' />
-                        <span>Users</span>
+            <Menu theme='dark' defaultSelectedKeys={['/datasource']} selectedKeys={[url]} mode='inline'>
+                <Menu.Item key='/datasource'>
+                    <Link to='/datasource'>
+                        <Icon type='database' />
+                        <span>Data Sources</span>
                     </Link>
                 </Menu.Item>
-                <Menu.Item key='/dashboards'>
-                    <Link to='/dashboards'>
+                <Menu.Item key='/dashboard'>
+                    <Link to='/dashboard'>
                         <Icon type='dashboard' />
-                        Dashboards
+                        Dashboard
                     </Link>
                 </Menu.Item>
-                <SubMenu
+                {/* <SubMenu
                     key='sub1'
                     title={
                         <span>
@@ -56,7 +57,7 @@ const SiderFC: React.FunctionComponent = children => {
                     <Menu.Item key='6'>monitor1</Menu.Item>
                     <Menu.Item key='7'>monitor2</Menu.Item>
                     <Menu.Item key='8'>monitor3</Menu.Item>
-                </SubMenu>
+                </SubMenu> */}
             </Menu>
         </Sider>
     );

@@ -8,6 +8,7 @@ export const common: webpack.Configuration = {
     entry: `${root}/index.tsx`,
     output: {
         path: output,
+        publicPath: '/',
         chunkFilename: '[name].[hash].js',
         filename: '[name].[hash].js',
     },

@@ -5,13 +5,23 @@
 }
 .card {
     text-align: center;
+    border: none;
 }
 .img {
     max-height: 100px;
 }
-
-.active {
-    border: solid 3px red;
+.col {
+    opacity: 0.5;
+    &:hover {
+        opacity: 1;
+    }
 }
-.nonactive {
+.selectedCol {
+    @extend .col;
+    opacity: 1;
+}
+
+.disabledCard {
+    @extend .card;
+    cursor: not-allowed;
 }

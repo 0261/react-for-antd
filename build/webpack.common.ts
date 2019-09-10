@@ -49,6 +49,14 @@ export const common: webpack.Configuration = {
                     },
                 ],
             },
+            {
+                test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
+                loader: 'url-loader',
+                options: {
+                    limit: 1000000,
+                    name: 'src/static/img/[name].[hash:8].[ext]',
+                },
+            },
         ],
     },
     resolve: {

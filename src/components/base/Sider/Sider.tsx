@@ -24,6 +24,12 @@ const SiderFC: React.FunctionComponent<Props> = ({ children, location }) => {
                         Dashboard
                     </Link>
                 </Menu.Item>
+                <Menu.Item key='/setting'>
+                    <Link to='/setting'>
+                        <Icon type='setting' />
+                        Settings
+                    </Link>
+                </Menu.Item>
             </Menu>
         </Sider>
     );

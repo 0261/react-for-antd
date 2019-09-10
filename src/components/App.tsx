@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import DashboardContaniner from '../containers/dashboards/Dashboard';
+import DataSourceContaniner from '../containers/datasources/DataSource';
 import Home from './home/Home';
-import Dashboard from './dasboards/Dashboard';
 import Users from './users/User';
 
 // import importedComponent from 'react-imported-component';
@@ -11,9 +12,8 @@ import Users from './users/User';
 const App = () => {
     return (
         <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/users' component={Users} />
-            <Route exact path='/dashboards' component={Dashboard} />
+            <Route exact path='/dashboard' component={DashboardContaniner} />
+            <Route exact path='/datasource' component={DataSourceContaniner} />
         </Switch>
     );
 };

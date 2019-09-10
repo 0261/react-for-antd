@@ -5,11 +5,7 @@ interface Props {
     url: string;
 }
 const Dashboard: React.FunctionComponent<Props> = ({ children, url }) => {
-    return (
-        <LayoutCommon url={url}>
-            <div className={styles.dashboard}>{children}</div>
-        </LayoutCommon>
-    );
+    return <div className={styles.dashboard}>{children}</div>;
 };
 
 export default Dashboard;

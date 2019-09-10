@@ -2,9 +2,6 @@
     "defaultSeverity": "error",
     "extends": ["tslint:recommended", "typada-lint-rules"],
     "jsRules": {},
-    "rules": {
-        "no-shadowed-variable": false,
-        "no-console": false
-    },
+    "rules": {},
     "rulesDirectory": []
 }

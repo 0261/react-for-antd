@@ -10,7 +10,7 @@ export default {
         '/setting/aws': 'AWS',
         '/chart/pie': 'Pie',
         '/chart/bar': 'Bar',
-        '/chart/network': 'network',
+        '/chart/network': 'Network',
         // '/setting/firebase': 'Firebase',
     } as BreadcrumbName,
 };

@@ -6,6 +6,7 @@ export default {
         '/dashboard': 'Dashboard',
         '/datasource': 'Data Sources',
         '/setting': 'Settings',
-        '/setting/configure': 'Configure',
+        '/setting/aws': 'AWS',
+        // '/setting/firebase': 'Firebase',
     } as BreadcrumbName,
 };

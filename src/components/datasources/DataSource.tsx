@@ -38,7 +38,8 @@ const DataSource: React.FunctionComponent<Props> = ({
     };
     return (
         <div className={styles.datasource}>
-            <h2>Selected Data Source [ {selectedKey && `${selectedKey}`} ]</h2>
+            {!selectedKey && <h2>데이터 소스를 선택하세요.</h2>}
+            {selectedKey && <h2>{selectedKey}</h2>}
             <Row gutter={16}>
                 {datasources.length > 0 &&
                     datasources.map(datasource => {

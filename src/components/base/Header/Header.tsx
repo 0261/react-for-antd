@@ -10,17 +10,22 @@ import config from '../../../../config';
 const { Header } = Layout;
 
 interface Props extends RouteComponentProps {}
-interface BreadcrumbName {
-    [key: string]: string;
-}
+
+const invisibleBreadCrumbs = ['/setting', '/chart'];
+
 const HeaderComponent: React.FunctionComponent<Props> = ({ children, location }) => {
     const pathSnippets = location.pathname.split('/').filter(pathname => pathname);
     const extraBreadcrumbItems = pathSnippets.map((_, index) => {
         const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+        const isInActive = invisibleBreadCrumbs.includes(url);
         return (
-            <Breadcrumb.Item key={url}>
-                {url !== '/setting' && <Link to={url}>{config.breadcrumbNameMap[url]}</Link>}
-            </Breadcrumb.Item>
+            <React.Fragment>
+                <Breadcrumb.Item key={url}>
+                    <Link to={isInActive ? '#' : url} style={{ cursor: 'not-allowed' }}>
+                        {config.breadcrumbNameMap[url]}
+                    </Link>
+                </Breadcrumb.Item>
+            </React.Fragment>
         );
     });
     const initBreadCrumbItems = [

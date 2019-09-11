@@ -8,9 +8,12 @@ const AsyncDataSource = importedComponent(() =>
     import(/* webpackChunkName:'Datasource' */ '../containers/datasources/DataSource'),
 );
 const AsyncHome = importedComponent(() => import(/* webpackChunkName:'Home' */ '../containers/home/Home'));
-const AsyncConfigure = importedComponent(() =>
-    import(/* webpackChunkName:'SettingConfigure' */ '../containers/settings/configure/Configure'),
+const AsyncAws = importedComponent(() =>
+    import(/* webpackChunkName:'SettingConfigure' */ '../containers/settings/aws/Aws'),
 );
+// const AsyncFirebase = importedComponent(() =>
+//     import(/* webpackChunkName:'SettingConfigure' */ '../containers/settings/firebase/Firebase'),
+// );
 
 const App = () => {
     return (
@@ -18,7 +21,8 @@ const App = () => {
             <Route exact path='/' component={AsyncHome} />
             <Route path='/datasource' component={AsyncDataSource} />
             <Route path='/dashboard' component={AsyncDashboard} />
-            <Route path='/setting/configure' component={AsyncConfigure} />
+            <Route path='/setting/aws' component={AsyncAws} />
+            {/* <Route path='/setting/firebase' component={AsyncFirebase} /> */}
         </Switch>
     );
 };

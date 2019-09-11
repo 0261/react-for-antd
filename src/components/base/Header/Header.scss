@@ -3,12 +3,19 @@
     padding: 0;
     margin: 0px 16px 5px;
 }
-
-.menu {
-    line-height: 64px;
-    text-align: right;
+.align {
+    display: flex;
+    justify-content: space-between;
 }
-
+.menu {
+    border-bottom: 0;
+    line-height: inherit;
+}
 .icon {
     margin-right: 0px;
+}
+
+.menuItem {
+    border-bottom: none !important;
+    vertical-align: baseline !important;
 }

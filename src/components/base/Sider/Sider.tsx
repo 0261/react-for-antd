@@ -34,9 +34,12 @@ const SiderFC: React.FunctionComponent<Props> = ({ children, location }) => {
                         </span>
                     }
                 >
-                    <Menu.Item key='/setting/configure'>
-                        <Link to='/setting/configure'>Configure</Link>
+                    <Menu.Item key='/setting/aws'>
+                        <Link to='/setting/aws'>AWS Permission</Link>
                     </Menu.Item>
+                    {/* <Menu.Item key='/setting/firebase'>
+                        <Link to='/setting/firebase'>Firebase Permission</Link>
+                    </Menu.Item> */}
                 </Menu.SubMenu>
             </Menu>
         </Sider>

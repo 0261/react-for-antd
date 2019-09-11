@@ -1,20 +1,13 @@
 import React, { Component } from 'react';
 import DasboardComponent from '../../components/dasboards/Dashboard';
-import PieComponent from '../../components/common/Pie/Pie';
+import { query } from '../../lib/dynamodb';
+import { Expression, equal } from '@typemon/dynamodb-expression';
 
-const data = [];
 interface Props {}
 
 class DashboardContainer extends Component<Props> {
     render() {
-        return (
-            <DasboardComponent>
-                <div>
-                    Dashboard container
-                    {data.length > 0 && <PieComponent data={[]} width={400} height={400} />}
-                </div>
-            </DasboardComponent>
-        );
+        return <DasboardComponent></DasboardComponent>;
     }
 }
 

@@ -1,11 +1,13 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { output, root } from '../build/path';
 import webpack from 'webpack';
 
 export const common: webpack.Configuration = {
-    entry: `${root}/index.tsx`,
+    entry: {
+        path: `${root}/index.tsx`,
+        vendor: ['react', 'react-dom', 'react-router-dom', 'antd', 'aws-sdk'],
+    },
     output: {
         path: output,
         publicPath: '/',

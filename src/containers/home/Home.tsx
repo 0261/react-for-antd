@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import HomeComponent from '../../components/home/Home';
 
-class DataSourceContainers extends Component {
+class HomeContainers extends Component {
     render() {
         return <HomeComponent></HomeComponent>;
     }
 }
 
-export default DataSourceContainers;
+export default HomeContainers;

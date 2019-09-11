@@ -17,7 +17,7 @@ const Root: React.FunctionComponent = () => {
                     <Content>
                         <App />
                     </Content>
-                    <Footer />
+                    {/* <Footer /> */}
                 </Layout>
             </Layout>
         </BrowserRouter>

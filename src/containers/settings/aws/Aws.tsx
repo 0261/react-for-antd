@@ -9,6 +9,10 @@ interface FormValue {
     secretkey: string | null;
 }
 class FormComponent extends React.Component<Props> {
+    state = {
+        accesskey: localStorage.getItem('accesskey'),
+        secretkey: localStorage.getItem('secretkey'),
+    };
     handleSubmit = (e: any) => {
         e.preventDefault();
         this.props.form.validateFields((err, values: FormValue) => {
@@ -17,19 +21,20 @@ class FormComponent extends React.Component<Props> {
             }
         });
     };
+    handleReset = (e: any) => {
+        e.preventDefault();
+        this.setKey({ accesskey: '', secretkey: '' });
+        this.setState({
+            accesskey: undefined,
+            secretkey: undefined,
+        });
+    };
     setKey(values: FormValue) {
         localStorage.setItem('accesskey', values.accesskey || '');
         localStorage.setItem('secretkey', values.secretkey || '');
     }
-    getKey(): FormValue {
-        return {
-            accesskey: localStorage.getItem('accesskey'),
-            secretkey: localStorage.getItem('secretkey'),
-        };
-    }
     render() {
         const { getFieldDecorator } = this.props.form;
-        const key = this.getKey();
         return (
             <div
                 style={{
@@ -45,10 +50,10 @@ class FormComponent extends React.Component<Props> {
                     showIcon
                 />
                 <br />
-                <Form onSubmit={this.handleSubmit} className='aws-permission-form'>
+                <Form onSubmit={this.handleSubmit} onReset={this.handleReset} className='aws-permission-form'>
                     <Form.Item>
                         {getFieldDecorator('accesskey', {
-                            initialValue: key.accesskey,
+                            initialValue: this.state.accesskey,
                             rules: [{ required: true, message: 'Please input your aws Access Key' }],
                         })(
                             <Input
@@ -59,7 +64,7 @@ class FormComponent extends React.Component<Props> {
                     </Form.Item>
                     <Form.Item>
                         {getFieldDecorator('secretkey', {
-                            initialValue: key.secretkey,
+                            initialValue: this.state.secretkey,
                             rules: [{ required: true, message: 'Please input your Secret Key' }],
                         })(
                             <Input
@@ -72,6 +77,10 @@ class FormComponent extends React.Component<Props> {
                     <Form.Item>
                         <Button type='primary' htmlType='submit' className='aws-permission-form-button'>
                             저장
+                        </Button>
+                        &nbsp;
+                        <Button type='danger' htmlType='reset' className='aws-permission-reset-form-button'>
+                            초기화
                         </Button>
                     </Form.Item>
                 </Form>

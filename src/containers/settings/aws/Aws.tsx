@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Icon, Alert } from 'antd';
+import { Form, Input, Button, Icon, Alert, message } from 'antd';
 
 import { WrappedFormInternalProps } from 'antd/lib/form/Form';
 
@@ -18,6 +18,7 @@ class FormComponent extends React.Component<Props> {
         this.props.form.validateFields((err, values: FormValue) => {
             if (!err) {
                 this.setKey(values);
+                message.success('저장 성공');
             }
         });
     };
@@ -28,6 +29,7 @@ class FormComponent extends React.Component<Props> {
             accesskey: undefined,
             secretkey: undefined,
         });
+        message.success('초기화 성공');
     };
     setKey(values: FormValue) {
         localStorage.setItem('accesskey', values.accesskey || '');

@@ -11,6 +11,8 @@ const AsyncHome = importedComponent(() => import(/* webpackChunkName:'Home' */ '
 const AsyncAws = importedComponent(() =>
     import(/* webpackChunkName:'SettingConfigure' */ '../containers/settings/aws/Aws'),
 );
+const AsyncPie = importedComponent(() => import(/* webpackChunkName:'ChartPie' */ '../containers/charts/pie/Pie'));
+
 // const AsyncFirebase = importedComponent(() =>
 //     import(/* webpackChunkName:'SettingConfigure' */ '../containers/settings/firebase/Firebase'),
 // );
@@ -22,6 +24,7 @@ const App = () => {
             <Route path='/datasource' component={AsyncDataSource} />
             <Route path='/dashboard' component={AsyncDashboard} />
             <Route path='/setting/aws' component={AsyncAws} />
+            <Route path='/chart/pie' component={AsyncPie} />
             {/* <Route path='/setting/firebase' component={AsyncFirebase} /> */}
         </Switch>
     );

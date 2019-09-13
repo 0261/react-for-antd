@@ -19,13 +19,11 @@ const HeaderComponent: React.FunctionComponent<Props> = ({ children, location })
         const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
         const isInActive = invisibleBreadCrumbs.includes(url);
         return (
-            <React.Fragment>
-                <Breadcrumb.Item key={url}>
-                    <Link to={isInActive ? '#' : url} style={{ cursor: 'not-allowed' }}>
-                        {config.breadcrumbNameMap[url]}
-                    </Link>
-                </Breadcrumb.Item>
-            </React.Fragment>
+            <Breadcrumb.Item key={url}>
+                <Link to={isInActive ? '#' : url} style={{ cursor: 'not-allowed' }}>
+                    {config.breadcrumbNameMap[url]}
+                </Link>
+            </Breadcrumb.Item>
         );
     });
     const initBreadCrumbItems = [

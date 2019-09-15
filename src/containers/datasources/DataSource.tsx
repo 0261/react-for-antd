@@ -48,7 +48,7 @@ class DataSourceContainers extends Component<Props> {
     render() {
         return (
             <DataSourceComponent
-                datasources={datasources}
+                dataSources={datasources}
                 onGetDatasource={this.handlGetDatasource}
                 onSetDatasource={this.handleSetDatasource}
                 onRemoveDatasource={this.handleRemoveDatasource}

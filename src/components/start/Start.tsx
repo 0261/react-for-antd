@@ -97,6 +97,31 @@ const StartComponent: React.FunctionComponent<Props> = ({
                 )}
                 {current === 2 && '차트 선택'}
                 {current === 3 && '소스 테이블 차트 검토 후 생성'}
+                {current === 4 && (
+                    <Result status='success' title='성공적으로 완료되었습니다 !'>
+                        <div className='desc'>
+                            <Paragraph>
+                                <Text strong className={styles.text16}>
+                                    생성 정보
+                                </Text>
+                            </Paragraph>
+                            <Paragraph>
+                                <Icon type='database' />
+                                <Text strong className={styles.text13}>
+                                    선택된 데이터소스
+                                </Text>
+                                <h4>{dataSource.toLowerCase()}</h4>
+                            </Paragraph>
+                            <Paragraph>
+                                <Icon type='table' />
+                                <Text strong className={styles.text13}>
+                                    선택된 테이블
+                                </Text>
+                                <h4>{table.toLowerCase()}</h4>
+                            </Paragraph>
+                        </div>
+                    </Result>
+                )}
             </div>
             <div className={styles.stepButton}>
                 <div className={styles.sticky}>

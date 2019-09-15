@@ -1,0 +1,17 @@
+.start {
+    padding: 24;
+    background: #fff;
+    min-height: 100%;
+}
+
+.step {
+    padding: 24px;
+}
+
+.stepContent {
+    @extend .step;
+}
+
+.stepButton {
+    @extend .step;
+}

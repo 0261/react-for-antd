@@ -1,7 +1,25 @@
 import React, { Component } from 'react';
-import DataSourceComponent from '../../components/datasources/DataSource';
+import StartComponent from '../../components/start/Start';
 
-const datasources = [
+const steps = [
+    {
+        title: '데이터 소스 선택',
+        icon: 'database',
+    },
+    {
+        title: '테이블 선택',
+        icon: 'table',
+    },
+    {
+        title: '차트 선택',
+        icon: 'fund',
+    },
+    {
+        title: '검토',
+        icon: 'check',
+    },
+];
+const dataSources = [
     {
         name: 'DYNAMODB',
         img: '/src/static/img/dynamodb.svg',
@@ -33,8 +51,22 @@ const datasources = [
         disabled: true,
     },
 ];
-interface Props {}
-class DataSourceContainers extends Component<Props> {
+
+export default class Start extends Component<{}, { current: number }, {}> {
+    constructor(props: any) {
+        super(props);
+        this.state = {
+            current: 0,
+        };
+    }
+    nextCurrent = () => {
+        this.setState({ current: this.state.current + 1 });
+    };
+
+    prevCurrent = () => {
+        this.setState({ current: this.state.current - 1 });
+    };
+
     handlGetDatasource() {
         const datasource = localStorage.getItem('datasource');
         return datasource;
@@ -45,16 +77,19 @@ class DataSourceContainers extends Component<Props> {
     handleRemoveDatasource() {
         localStorage.removeItem('datasource');
     }
+
     render() {
         return (
-            <DataSourceComponent
-                dataSources={datasources}
+            <StartComponent
+                onNextCurrent={this.nextCurrent}
+                onPrevCurrent={this.prevCurrent}
+                current={this.state.current}
+                steps={steps}
+                dataSources={dataSources}
                 onGetDatasource={this.handlGetDatasource}
                 onSetDatasource={this.handleSetDatasource}
                 onRemoveDatasource={this.handleRemoveDatasource}
-            ></DataSourceComponent>
+            ></StartComponent>
         );
     }
 }
-
-export default DataSourceContainers;

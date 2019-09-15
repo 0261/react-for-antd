@@ -28,10 +28,10 @@ const SiderFC: React.FunctionComponent<Props> = ({ children, location }) => {
                         <Link to='/setting/firebase'>Firebase Permission</Link>
                     </Menu.Item> */}
                 </Menu.SubMenu>
-                <Menu.Item key='/datasource'>
-                    <Link to='/datasource'>
-                        <Icon type='database' />
-                        <span>Data Sources</span>
+                <Menu.Item key='/start'>
+                    <Link to='/start'>
+                        <Icon type='build' />
+                        <span>Getting Started</span>
                     </Link>
                 </Menu.Item>
                 <Menu.SubMenu

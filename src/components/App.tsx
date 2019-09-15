@@ -4,9 +4,6 @@ import importedComponent from 'react-imported-component';
 const AsyncDashboard = importedComponent(() =>
     import(/* webpackChunkName:'Dashboard' */ '../containers/dashboards/Dashboard'),
 );
-const AsyncDataSource = importedComponent(() =>
-    import(/* webpackChunkName:'Datasource' */ '../containers/datasources/DataSource'),
-);
 const AsyncStart = importedComponent(() => import(/* webpackChunkName:'Start' */ '../containers/start/Start'));
 const AsyncHome = importedComponent(() => import(/* webpackChunkName:'Home' */ '../containers/home/Home'));
 const AsyncAws = importedComponent(() =>
@@ -22,7 +19,6 @@ const App = () => {
     return (
         <Switch>
             <Route exact path='/' component={AsyncHome} />
-            <Route path='/datasource' component={AsyncDataSource} />
             <Route path='/start' component={AsyncStart} />
             <Route path='/dashboard' component={AsyncDashboard} />
             <Route path='/setting/aws' component={AsyncAws} />

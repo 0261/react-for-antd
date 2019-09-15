@@ -1,8 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { Steps, Button, message, Icon } from 'antd';
+import { Steps, Button, message, Icon, Result, Typography } from 'antd';
 import styles from './Start.scss';
 import DataSourceComponent from '../datasources/DataSource';
+import DataSourceTableComponent from '../dataSourceTables/DataSourceTable';
+import { withRouter, RouteComponentProps } from 'react-router';
 const { Step } = Steps;
+const { Paragraph, Text } = Typography;
 interface DataSource {
     name: string;
     img: string;
@@ -12,15 +15,22 @@ interface Step {
     title: string;
     icon: string;
 }
-interface Props {
+interface Props extends RouteComponentProps {
+    dataSource: string;
+    table: string;
     steps: Array<Step>;
+    tables: Array<string>;
     current: number;
     dataSources: Array<DataSource>;
     onNextCurrent: () => void;
     onPrevCurrent: () => void;
     onGetDatasource: () => string | null;
-    onSetDatasource: (datasource: string) => void;
+    onSetDatasource: (dataSource: string) => void;
     onRemoveDatasource: () => void;
+    onGetTablenames: (dataSource: string | null) => Promise<any>;
+    onGetTable: () => string;
+    onSetTable: (table: string) => void;
+    onRemoveTable: () => void;
 }
 
 const StartComponent: React.FunctionComponent<Props> = ({
@@ -29,21 +39,32 @@ const StartComponent: React.FunctionComponent<Props> = ({
     onNextCurrent,
     onPrevCurrent,
     dataSources,
+    dataSource,
     onGetDatasource,
     onRemoveDatasource,
     onSetDatasource,
+    onGetTablenames,
+    tables,
+    table,
+    onGetTable,
+    onSetTable,
+    onRemoveTable,
 }) => {
-    const onNext = useCallback((e: any) => {
-        if (!onGetDatasource()) {
+    const onNext = (e: any) => {
+        if (current === 0 && !onGetDatasource()) {
             message.warning('데이터소스를 선택해주세요.', 1);
             return;
         }
+        if (current === 1 && !onGetTable()) {
+            message.warning('테이블을 선택해주세요.', 1);
+            return;
+        }
         onNextCurrent();
-    }, []);
+    };
 
-    const onPrev = useCallback((e: any) => {
+    const onPrev = (e: any) => {
         onPrevCurrent();
-    }, []);
+    };
 
     return (
         <div className={styles.start}>
@@ -58,34 +79,46 @@ const StartComponent: React.FunctionComponent<Props> = ({
                 {current === 0 && (
                     <DataSourceComponent
                         dataSources={dataSources}
-                        onGetDatasource={onGetDatasource}
+                        dataSource={dataSource}
                         onSetDatasource={onSetDatasource}
                         onRemoveDatasource={onRemoveDatasource}
                     ></DataSourceComponent>
                 )}
-                {current === 1 && '테이블 선택'}
+                {current === 1 && (
+                    <DataSourceTableComponent
+                        tables={tables}
+                        table={table}
+                        onGetTablenames={onGetTablenames}
+                        onSetTable={onSetTable}
+                        onGetTable={onGetTable}
+                        onRemoveTable={onRemoveTable}
+                        dataSource={onGetDatasource()}
+                    ></DataSourceTableComponent>
+                )}
                 {current === 2 && '차트 선택'}
                 {current === 3 && '소스 테이블 차트 검토 후 생성'}
             </div>
             <div className={styles.stepButton}>
-                {current < steps.length - 1 && (
-                    <Button type='primary' onClick={onNext}>
-                        다음
-                    </Button>
-                )}
-                {current === steps.length - 1 && (
-                    <Button type='primary' onClick={() => message.success('생성 완료')}>
-                        완료
-                    </Button>
-                )}
-                {current > 0 && (
-                    <Button style={{ marginLeft: 8 }} onClick={onPrev}>
-                        이전
-                    </Button>
-                )}
+                <div className={styles.sticky}>
+                    {current < steps.length - 1 && current !== 3 && (
+                        <Button type='primary' onClick={onNext}>
+                            다음
+                        </Button>
+                    )}
+                    {current === 3 && (
+                        <Button type='primary' onClick={onNext}>
+                            생성
+                        </Button>
+                    )}
+                    {current > 0 && current !== 4 && (
+                        <Button style={{ marginLeft: 8 }} onClick={onPrev}>
+                            이전
+                        </Button>
+                    )}
+                </div>
             </div>
         </div>
     );
 };
 
-export default StartComponent;
+export default withRouter(StartComponent);

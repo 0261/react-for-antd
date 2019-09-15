@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 import StartComponent from '../../components/start/Start';
+import { listTables } from '../../lib/dynamodb';
 
 const steps = [
     {
-        title: '데이터 소스 선택',
+        title: '데이터 소스 선택 단계',
         icon: 'database',
     },
     {
-        title: '테이블 선택',
+        title: '테이블 선택 단계',
         icon: 'table',
     },
     {
-        title: '차트 선택',
+        title: '차트 선택 단계',
         icon: 'fund',
     },
     {
-        title: '검토',
+        title: '검토 단계',
+        icon: 'info',
+    },
+    {
+        title: '완료',
         icon: 'check',
     },
 ];
@@ -51,12 +56,20 @@ const dataSources = [
         disabled: true,
     },
 ];
-
-export default class Start extends Component<{}, { current: number }, {}> {
+interface State {
+    current: number;
+    tables: Array<string>;
+    dataSource: string;
+    table: string;
+}
+export default class Start extends Component<{}, State, {}> {
     constructor(props: any) {
         super(props);
         this.state = {
             current: 0,
+            tables: [],
+            dataSource: this.handlGetDatasource(),
+            table: this.handleGetTable(),
         };
     }
     nextCurrent = () => {
@@ -67,28 +80,59 @@ export default class Start extends Component<{}, { current: number }, {}> {
         this.setState({ current: this.state.current - 1 });
     };
 
-    handlGetDatasource() {
-        const datasource = localStorage.getItem('datasource');
-        return datasource;
-    }
-    handleSetDatasource(datasource: string) {
-        localStorage.setItem('datasource', datasource);
-    }
-    handleRemoveDatasource() {
+    handlGetDatasource = () => {
+        return localStorage.getItem('datasource') || '';
+    };
+
+    handleSetDatasource = (dataSource: string) => {
+        localStorage.setItem('datasource', dataSource);
+        this.setState({ ...this.state, dataSource });
+    };
+
+    handleRemoveDatasource = () => {
         localStorage.removeItem('datasource');
-    }
+        this.setState({ ...this.state, dataSource: '' });
+    };
+
+    handleGetTableNames = async (dataSource: string | null) => {
+        if (dataSource === 'DYNAMODB') {
+            const tables = await listTables();
+            this.setState({ current: this.state.current, tables: tables.TableNames || [] });
+        }
+    };
+
+    handleGetTable = () => {
+        return localStorage.getItem('table') || '';
+    };
+
+    handleSetTable = (table: string) => {
+        localStorage.setItem('table', table);
+        this.setState({ ...this.state, table });
+    };
+
+    handleRemoveTable = () => {
+        localStorage.removeItem('table');
+        this.setState({ ...this.state, table: '' });
+    };
 
     render() {
         return (
             <StartComponent
+                steps={steps}
+                dataSources={dataSources}
+                dataSource={this.state.dataSource}
+                tables={this.state.tables}
+                table={this.state.table}
                 onNextCurrent={this.nextCurrent}
                 onPrevCurrent={this.prevCurrent}
                 current={this.state.current}
-                steps={steps}
-                dataSources={dataSources}
                 onGetDatasource={this.handlGetDatasource}
                 onSetDatasource={this.handleSetDatasource}
                 onRemoveDatasource={this.handleRemoveDatasource}
+                onGetTablenames={this.handleGetTableNames}
+                onGetTable={this.handleGetTable}
+                onSetTable={this.handleSetTable}
+                onRemoveTable={this.handleRemoveTable}
             ></StartComponent>
         );
     }

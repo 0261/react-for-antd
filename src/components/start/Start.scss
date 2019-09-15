@@ -15,3 +15,14 @@
 .stepButton {
     @extend .step;
 }
+
+.text13 {
+    font-size: 13;
+}
+.text16 {
+    font-size: 16;
+}
+.sticky {
+    position: fixed;
+    bottom: 10px;
+}

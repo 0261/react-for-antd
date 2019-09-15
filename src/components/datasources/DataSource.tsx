@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './DataSource.scss';
-import { Card, Row, Col } from 'antd';
-import { message } from 'antd';
+import { Card, Row, Col, message } from 'antd';
 
 interface DataSource {
     name: string;
@@ -11,7 +10,7 @@ interface DataSource {
 
 interface Props {
     dataSources: Array<DataSource>;
-    onGetDatasource: () => string | null;
+    dataSource: string;
     onSetDatasource: (datasource: string) => void;
     onRemoveDatasource: () => void;
 }
@@ -19,24 +18,26 @@ interface Props {
 const DataSource: React.FunctionComponent<Props> = ({
     dataSources,
     onSetDatasource,
-    onGetDatasource,
+    dataSource,
     onRemoveDatasource,
 }) => {
-    const initSelectedKey = onGetDatasource();
-    const [selectedKey, setSelectedKey] = useState(initSelectedKey);
+    const selectedKey = dataSource;
 
     const onSelect = (dataSource: DataSource) => {
+        if (
+            dataSource.name === 'DYNAMODB' &&
+            (!localStorage.getItem('accesskey') || !localStorage.getItem('secretkey'))
+        ) {
+            message.warning('AWS Permission을 진행해주세요.');
+            return;
+        }
         if (dataSource.disabled) {
             return;
         }
         if (selectedKey !== dataSource.name) {
-            setSelectedKey(dataSource.name);
             onSetDatasource(dataSource.name);
-            message.success(`${dataSource.name} 선택 성공`);
         } else {
-            setSelectedKey('');
             onRemoveDatasource();
-            message.success(`${dataSource.name} 해제 성공`);
         }
     };
     return (

@@ -5,7 +5,7 @@ import DataSourceComponent from '../datasources/DataSource';
 import DataSourceTableComponent from '../dataSourceTables/DataSourceTable';
 import ChartComponent from '../charts/Chart';
 import { withRouter, RouteComponentProps } from 'react-router';
-import SummaryComponent from '../summary/Summary';
+// import SummaryComponent from '../summary/Summary';
 import SuccessComponent from '../success/Success';
 const { Step } = Steps;
 const { Paragraph, Text } = Typography;
@@ -138,10 +138,10 @@ const StartComponent: React.FunctionComponent<Props> = ({
                         onRemoveChart={onRemoveChart}
                     ></ChartComponent>
                 )}
-                {current === 3 && (
+                {/* {current === 3 && (
                     <SummaryComponent dataSource={dataSource} chart={chart} table={table}></SummaryComponent>
-                )}
-                {current === 4 && (
+                )} */}
+                {current === 3 && (
                     <SuccessComponent dataSource={dataSource} chart={chart} table={table}></SuccessComponent>
                 )}
             </div>
@@ -152,12 +152,7 @@ const StartComponent: React.FunctionComponent<Props> = ({
                             다음
                         </Button>
                     )}
-                    {current === 3 && (
-                        <Button type='primary' onClick={onNext}>
-                            생성
-                        </Button>
-                    )}
-                    {current > 0 && current !== 4 && (
+                    {current > 0 && current !== 3 && (
                         <Button style={{ marginLeft: 8 }} onClick={onPrev}>
                             이전
                         </Button>

@@ -4,21 +4,21 @@ import { listTables, getTableDescription } from '../../lib/dynamodb';
 
 const steps = [
     {
-        title: '데이터 소스 선택 단계',
+        title: '데이터 소스 선택',
         icon: 'database',
     },
     {
-        title: '테이블 선택 단계',
+        title: '테이블 선택',
         icon: 'table',
     },
     {
-        title: '차트 선택 단계',
+        title: '차트 선택',
         icon: 'fund',
     },
-    {
-        title: '검토 단계',
-        icon: 'info',
-    },
+    // {
+    //     title: '검토 단계',
+    //     icon: 'info',
+    // },
     {
         title: '완료',
         icon: 'check',
@@ -66,13 +66,13 @@ const charts = [
     {
         displayName: 'Bar Chart',
         name: 'Bar',
-        disabled: true,
+        disabled: false,
         img: '/src/static/img/bar.png',
     },
     {
         displayName: 'Network Chart',
         name: 'Network',
-        disabled: true,
+        disabled: false,
         img: '/src/static/img/network.png',
     },
 ];

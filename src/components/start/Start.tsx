@@ -6,6 +6,7 @@ import DataSourceTableComponent from '../dataSourceTables/DataSourceTable';
 import ChartComponent from '../charts/Chart';
 import { withRouter, RouteComponentProps } from 'react-router';
 import SummaryComponent from '../summary/Summary';
+import SuccessComponent from '../success/Success';
 const { Step } = Steps;
 const { Paragraph, Text } = Typography;
 interface DataSource {
@@ -141,29 +142,7 @@ const StartComponent: React.FunctionComponent<Props> = ({
                     <SummaryComponent dataSource={dataSource} chart={chart} table={table}></SummaryComponent>
                 )}
                 {current === 4 && (
-                    <Result status='success' title='성공적으로 완료되었습니다 !'>
-                        <div className='desc'>
-                            <Paragraph>
-                                <Text strong className={styles.text16}>
-                                    생성 정보
-                                </Text>
-                            </Paragraph>
-                            <Paragraph>
-                                <Icon type='database' />
-                                <Text strong className={styles.text13}>
-                                    선택된 데이터소스
-                                </Text>
-                                <h4>{dataSource.toLowerCase()}</h4>
-                            </Paragraph>
-                            <Paragraph>
-                                <Icon type='table' />
-                                <Text strong className={styles.text13}>
-                                    선택된 테이블
-                                </Text>
-                                <h4>{table.toLowerCase()}</h4>
-                            </Paragraph>
-                        </div>
-                    </Result>
+                    <SuccessComponent dataSource={dataSource} chart={chart} table={table}></SuccessComponent>
                 )}
             </div>
             <div className={styles.stepButton}>

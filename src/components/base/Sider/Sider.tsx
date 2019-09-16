@@ -34,28 +34,6 @@ const SiderFC: React.FunctionComponent<Props> = ({ children, location }) => {
                         <span>Getting Started</span>
                     </Link>
                 </Menu.Item>
-                <Menu.SubMenu
-                    key='/chart'
-                    title={
-                        <span>
-                            <Icon type='bar-chart' />
-                            <span>Charts</span>
-                        </span>
-                    }
-                >
-                    <Menu.Item key='/chart/pie'>
-                        <Link to='/chart/pie'>Pie</Link>
-                    </Menu.Item>
-                    <Menu.Item key='/chart/bar'>
-                        <Link to='/chart/bar'>Bar</Link>
-                    </Menu.Item>
-                    <Menu.Item key='/chart/network'>
-                        <Link to='/chart/network'>Network</Link>
-                    </Menu.Item>
-                    {/* <Menu.Item key='/setting/firebase'>
-                        <Link to='/setting/firebase'>Firebase Permission</Link>
-                    </Menu.Item> */}
-                </Menu.SubMenu>
                 <Menu.Item key='/dashboard'>
                     <Link to='/dashboard'>
                         <Icon type='dashboard' />

@@ -60,3 +60,24 @@ export const listTables = async () => {
         throw new Error(error);
     }
 };
+
+export const getTableDescription = async (
+    TableName: string,
+): Promise<{
+    KeySchema: Array<AWS.DynamoDB.KeySchemaElement>;
+    tableName: string;
+}> => {
+    try {
+        const table = await dynamodb
+            .describeTable({
+                TableName,
+            })
+            .promise();
+        const { KeySchema } = table.Table as AWS.DynamoDB.TableDescription;
+        const schema = KeySchema as Array<AWS.DynamoDB.KeySchemaElement>;
+        return { KeySchema: schema, tableName: TableName };
+    } catch (error) {
+        console.log('get TableDescription', error);
+        throw new Error(error);
+    }
+};

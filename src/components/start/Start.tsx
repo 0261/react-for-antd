@@ -1,9 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { Steps, Button, message, Icon, Result, Typography } from 'antd';
+import { Steps, Button, message, Icon, Result, Typography, Descriptions } from 'antd';
 import styles from './Start.scss';
 import DataSourceComponent from '../datasources/DataSource';
 import DataSourceTableComponent from '../dataSourceTables/DataSourceTable';
+import ChartComponent from '../charts/Chart';
 import { withRouter, RouteComponentProps } from 'react-router';
+import SummaryComponent from '../summary/Summary';
 const { Step } = Steps;
 const { Paragraph, Text } = Typography;
 interface DataSource {
@@ -15,6 +17,16 @@ interface Step {
     title: string;
     icon: string;
 }
+interface Chart {
+    name: string;
+    displayName: string;
+    disabled: boolean;
+    img: string;
+}
+interface TableDescription {
+    AttributeName: string;
+    KeyType: 'HASH' | 'RANGE' | string;
+}
 interface Props extends RouteComponentProps {
     dataSource: string;
     table: string;
@@ -22,6 +34,9 @@ interface Props extends RouteComponentProps {
     tables: Array<string>;
     current: number;
     dataSources: Array<DataSource>;
+    charts: Array<Chart>;
+    chart: string;
+    tableDescription: Array<TableDescription>;
     onNextCurrent: () => void;
     onPrevCurrent: () => void;
     onGetDatasource: () => string | null;
@@ -30,7 +45,11 @@ interface Props extends RouteComponentProps {
     onGetTablenames: (dataSource: string | null) => Promise<any>;
     onGetTable: () => string;
     onSetTable: (table: string) => void;
+    onGetTableDescription: (dataSource: string | null, table: string) => object;
     onRemoveTable: () => void;
+    onGetChart: () => string;
+    onSetChart: (chart: string) => void;
+    onRemoveChart: () => void;
 }
 
 const StartComponent: React.FunctionComponent<Props> = ({
@@ -49,6 +68,13 @@ const StartComponent: React.FunctionComponent<Props> = ({
     onGetTable,
     onSetTable,
     onRemoveTable,
+    charts,
+    onGetChart,
+    onRemoveChart,
+    onSetChart,
+    chart,
+    onGetTableDescription,
+    tableDescription,
 }) => {
     const onNext = (e: any) => {
         if (current === 0 && !onGetDatasource()) {
@@ -57,6 +83,10 @@ const StartComponent: React.FunctionComponent<Props> = ({
         }
         if (current === 1 && !onGetTable()) {
             message.warning('테이블을 선택해주세요.', 1);
+            return;
+        }
+        if (current === 2 && !onGetChart()) {
+            message.warning('차트를 선택해주세요.', 1);
             return;
         }
         onNextCurrent();
@@ -92,11 +122,24 @@ const StartComponent: React.FunctionComponent<Props> = ({
                         onSetTable={onSetTable}
                         onGetTable={onGetTable}
                         onRemoveTable={onRemoveTable}
+                        onGetTableDescription={onGetTableDescription}
                         dataSource={onGetDatasource()}
+                        tableDescription={tableDescription}
                     ></DataSourceTableComponent>
                 )}
-                {current === 2 && '차트 선택'}
-                {current === 3 && '소스 테이블 차트 검토 후 생성'}
+                {current === 2 && (
+                    <ChartComponent
+                        charts={charts}
+                        chart={chart}
+                        dataSource={dataSource}
+                        onSetChart={onSetChart}
+                        onGetChart={onGetChart}
+                        onRemoveChart={onRemoveChart}
+                    ></ChartComponent>
+                )}
+                {current === 3 && (
+                    <SummaryComponent dataSource={dataSource} chart={chart} table={table}></SummaryComponent>
+                )}
             </div>
             <div className={styles.stepButton}>
                 <div className={styles.sticky}>

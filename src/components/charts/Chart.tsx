@@ -92,6 +92,7 @@ const ChartComponent: React.FunctionComponent<Props> = ({
                     </Row>
                 </Panel>
                 <Panel header='옵션' key='optional' style={customPanelStyle}>
+                    {/* TODO: 추후에 다른 데이터소스가 개발될 경우 컴포넌트로 분리하고 각 데이터베이스에 맞도록 처리할 것 */}
                     {dataSource === 'Dynamodb' && (
                         <div className='desc'>
                             <Paragraph>

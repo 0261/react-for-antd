@@ -6,6 +6,7 @@ import DataSourceTableComponent from '../dataSourceTables/DataSourceTable';
 import ChartComponent from '../charts/Chart';
 import { withRouter, RouteComponentProps } from 'react-router';
 import SummaryComponent from '../summary/Summary';
+import SuccessComponent from '../success/Success';
 const { Step } = Steps;
 const { Paragraph, Text } = Typography;
 interface DataSource {
@@ -139,6 +140,9 @@ const StartComponent: React.FunctionComponent<Props> = ({
                 )}
                 {current === 3 && (
                     <SummaryComponent dataSource={dataSource} chart={chart} table={table}></SummaryComponent>
+                )}
+                {current === 4 && (
+                    <SuccessComponent dataSource={dataSource} chart={chart} table={table}></SuccessComponent>
                 )}
             </div>
             <div className={styles.stepButton}>

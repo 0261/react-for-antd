@@ -53,7 +53,7 @@ const DataSource: React.FunctionComponent<Props> = ({
                             <Col
                                 onClick={() => onSelect(dataSource)}
                                 className={dataSource.name === selectedKey ? styles.selectedCol : styles.col}
-                                span={8}
+                                span={4}
                                 key={dataSource.name}
                             >
                                 <Card

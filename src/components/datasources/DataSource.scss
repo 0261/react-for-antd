@@ -1,9 +1,9 @@
 .datasource {
-    padding: 24;
     background: #fff;
     min-height: 100%;
 }
 .card {
+    border-radius: 50px;
     text-align: center;
     border: none;
 }
@@ -14,11 +14,15 @@
     opacity: 0.5;
     &:hover {
         opacity: 1;
+        border: solid 1px royalblue;
+        border-radius: 50px;
     }
 }
 .selectedCol {
     @extend .col;
     opacity: 1;
+    border: solid 1px royalblue;
+    border-radius: 50px;
 }
 
 .disabledCard {

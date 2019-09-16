@@ -17,12 +17,12 @@ const SiderFC: React.FunctionComponent<Props> = ({ children, location }) => {
                     title={
                         <span>
                             <Icon type='setting' />
-                            <span>Settings</span>
+                            <span>설정</span>
                         </span>
                     }
                 >
                     <Menu.Item key='/setting/aws'>
-                        <Link to='/setting/aws'>AWS Permission</Link>
+                        <Link to='/setting/aws'>AWS 허가</Link>
                     </Menu.Item>
                     {/* <Menu.Item key='/setting/firebase'>
                         <Link to='/setting/firebase'>Firebase Permission</Link>
@@ -31,13 +31,13 @@ const SiderFC: React.FunctionComponent<Props> = ({ children, location }) => {
                 <Menu.Item key='/start'>
                     <Link to='/start'>
                         <Icon type='build' />
-                        <span>Getting Started</span>
+                        <span>차트 추가</span>
                     </Link>
                 </Menu.Item>
                 <Menu.Item key='/dashboard'>
                     <Link to='/dashboard'>
                         <Icon type='dashboard' />
-                        Dashboard
+                        대시보드
                     </Link>
                 </Menu.Item>
             </Menu>

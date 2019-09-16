@@ -3,11 +3,11 @@ interface BreadcrumbName {
 }
 export default {
     breadcrumbNameMap: {
-        '/dashboard': 'Dashboard',
+        '/dashboard': '대시보드',
         '/datasource': 'Data Sources',
-        '/start': 'Getting Started',
-        '/setting': 'Settings',
-        '/chart': 'Charts',
+        '/start': '차트 추가',
+        '/setting': '설정',
+        '/chart': '차트',
         '/setting/aws': 'AWS',
         // '/setting/firebase': 'Firebase',
     } as BreadcrumbName,

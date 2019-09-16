@@ -28,7 +28,7 @@ const HeaderComponent: React.FunctionComponent<Props> = ({ children, location })
     });
     const initBreadCrumbItems = [
         <Breadcrumb.Item key='home'>
-            <Link to='/'>Home</Link>
+            <Link to='/'>홈</Link>
         </Breadcrumb.Item>,
     ].concat(extraBreadcrumbItems);
 

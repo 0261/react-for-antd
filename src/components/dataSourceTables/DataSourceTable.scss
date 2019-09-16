@@ -1,5 +1,4 @@
 .datasourceTable {
-    padding: 24;
     background: #fff;
     min-height: 100%;
 }
@@ -9,6 +8,8 @@
 }
 .col {
     opacity: 0.5;
+    min-height: 10rem;
+
     &:hover {
         opacity: 1;
     }

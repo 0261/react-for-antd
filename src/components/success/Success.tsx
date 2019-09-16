@@ -13,13 +13,37 @@ const SuccessComponent: React.FunctionComponent<Props> = ({ chart, dataSource, t
         <Result
             status='success'
             title='성공적으로 완료되었습니다 !'
-            subTitle={`${dataSource} - ${table} - ${chart}`}
             extra={[
                 <Button type='primary' key='console'>
-                    <Link to='/dashboard'>대시보드로 이동하기</Link>
+                    <Link to='/dashboard'>대시보드로</Link>
+                </Button>,
+                <Button type='default' key='console'>
+                    <Link to='/home'>홈으로</Link>
                 </Button>,
             ]}
-        ></Result>
+        >
+            <div className='desc'>
+                <Paragraph>
+                    <Text
+                        strong
+                        style={{
+                            fontSize: 16,
+                        }}
+                    >
+                        설정 정보
+                    </Text>
+                </Paragraph>
+                <Paragraph>
+                    <b>데이터소스 : {dataSource}</b>{' '}
+                </Paragraph>
+                <Paragraph>
+                    <b>테이블 : {table}</b>{' '}
+                </Paragraph>
+                <Paragraph>
+                    <b>차트 : {chart}</b>{' '}
+                </Paragraph>
+            </div>
+        </Result>
     );
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './DataSource.scss';
 import { Card, Row, Col, message } from 'antd';
 
@@ -25,7 +25,7 @@ const DataSource: React.FunctionComponent<Props> = ({
 
     const onSelect = (dataSource: DataSource) => {
         if (
-            dataSource.name === 'DYNAMODB' &&
+            dataSource.name === 'Dynamodb' &&
             (!localStorage.getItem('accesskey') || !localStorage.getItem('secretkey'))
         ) {
             message.warning('AWS Permission을 진행해주세요.');

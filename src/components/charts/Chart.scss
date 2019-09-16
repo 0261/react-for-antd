@@ -1,0 +1,25 @@
+.chart {
+    background: #fff;
+    min-height: 100%;
+}
+.card {
+    text-align: center;
+    border: none;
+}
+.col {
+    opacity: 0.5;
+    &:hover {
+        opacity: 1;
+    }
+}
+.selectedCol {
+    @extend .col;
+    opacity: 1;
+}
+.disabledCard {
+    @extend .card;
+    cursor: not-allowed;
+}
+.img {
+    height: 250px;
+}

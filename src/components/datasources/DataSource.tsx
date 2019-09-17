@@ -62,7 +62,10 @@ const DataSource: React.FunctionComponent<Props> = ({
                                     className={dataSource.disabled ? styles.disabledCard : styles.card}
                                 >
                                     <b>{dataSource.name}</b>
-                                    <p style={{ fontStyle: 'italic' }}>{dataSource.disabled && 'comming soon'}</p>
+                                    <p style={{ fontStyle: 'italic' }}>
+                                        {dataSource.disabled && 'comming soon'}
+                                        {!dataSource.disabled && 'available'}
+                                    </p>
                                 </Card>
                             </Col>
                         );

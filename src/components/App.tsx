@@ -1,4 +1,5 @@
 import React from 'react';
+import './Global.css';
 import { Switch, Route } from 'react-router-dom';
 import importedComponent from 'react-imported-component';
 const AsyncDashboard = importedComponent(() =>

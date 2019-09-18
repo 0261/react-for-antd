@@ -5,7 +5,6 @@ import DataSourceComponent from '../datasources/DataSource';
 import DataSourceTableComponent from '../dataSourceTables/DataSourceTable';
 import ChartComponent from '../charts/Chart';
 import { withRouter, RouteComponentProps } from 'react-router';
-// import SummaryComponent from '../summary/Summary';
 import SuccessComponent from '../success/Success';
 const { Step } = Steps;
 const { Paragraph, Text } = Typography;
@@ -40,53 +39,41 @@ interface Props extends RouteComponentProps {
     tableDescription: Array<TableDescription>;
     onNextCurrent: () => void;
     onPrevCurrent: () => void;
-    onGetDatasource: () => string | null;
-    onSetDatasource: (dataSource: string) => void;
-    onRemoveDatasource: () => void;
     onGetTablenames: (dataSource: string | null) => Promise<any>;
-    onGetTable: () => string;
-    onSetTable: (table: string) => void;
     onGetTableDescription: (dataSource: string | null, table: string) => object;
-    onRemoveTable: () => void;
-    onGetChart: () => string;
-    onSetChart: (chart: string) => void;
-    onRemoveChart: () => void;
+    onGet: (key: string) => string;
+    onSet: (key: string, value: any) => void;
+    onRemove: (key: string) => void;
 }
 
 const StartComponent: React.FunctionComponent<Props> = ({
     steps,
     current,
+    onSet,
+    onGet,
+    onRemove,
     onNextCurrent,
     onPrevCurrent,
     dataSources,
     dataSource,
-    onGetDatasource,
-    onRemoveDatasource,
-    onSetDatasource,
     onGetTablenames,
     tables,
     table,
-    onGetTable,
-    onSetTable,
-    onRemoveTable,
     charts,
-    onGetChart,
-    onRemoveChart,
-    onSetChart,
     chart,
     onGetTableDescription,
     tableDescription,
 }) => {
     const onNext = (e: any) => {
-        if (current === 0 && !onGetDatasource()) {
+        if (current === 0 && !onGet('dataSource')) {
             message.warning('데이터소스를 선택해주세요.', 1);
             return;
         }
-        if (current === 1 && !onGetTable()) {
+        if (current === 1 && !onGet('table')) {
             message.warning('테이블을 선택해주세요.', 1);
             return;
         }
-        if (current === 2 && !onGetChart()) {
+        if (current === 2 && !onGet('chart')) {
             message.warning('차트를 선택해주세요.', 1);
             return;
         }
@@ -111,21 +98,21 @@ const StartComponent: React.FunctionComponent<Props> = ({
                     <DataSourceComponent
                         dataSources={dataSources}
                         dataSource={dataSource}
-                        onSetDatasource={onSetDatasource}
-                        onRemoveDatasource={onRemoveDatasource}
+                        onSet={onSet}
+                        onRemove={onRemove}
                     ></DataSourceComponent>
                 )}
                 {current === 1 && (
                     <DataSourceTableComponent
                         tables={tables}
                         table={table}
-                        onGetTablenames={onGetTablenames}
-                        onSetTable={onSetTable}
-                        onGetTable={onGetTable}
-                        onRemoveTable={onRemoveTable}
-                        onGetTableDescription={onGetTableDescription}
-                        dataSource={onGetDatasource()}
+                        dataSource={onGet('dataSource')}
                         tableDescription={tableDescription}
+                        onGetTablenames={onGetTablenames}
+                        onGetTableDescription={onGetTableDescription}
+                        onGet={onGet}
+                        onSet={onSet}
+                        onRemove={onRemove}
                     ></DataSourceTableComponent>
                 )}
                 {current === 2 && (
@@ -133,14 +120,11 @@ const StartComponent: React.FunctionComponent<Props> = ({
                         charts={charts}
                         chart={chart}
                         dataSource={dataSource}
-                        onSetChart={onSetChart}
-                        onGetChart={onGetChart}
-                        onRemoveChart={onRemoveChart}
+                        onGet={onGet}
+                        onSet={onSet}
+                        onRemove={onRemove}
                     ></ChartComponent>
                 )}
-                {/* {current === 3 && (
-                    <SummaryComponent dataSource={dataSource} chart={chart} table={table}></SummaryComponent>
-                )} */}
                 {current === 3 && (
                     <SuccessComponent dataSource={dataSource} chart={chart} table={table}></SuccessComponent>
                 )}

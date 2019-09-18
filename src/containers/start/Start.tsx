@@ -75,6 +75,12 @@ const charts = [
         disabled: false,
         img: '/src/static/img/network.png',
     },
+    {
+        displayName: 'Sankey Chart',
+        name: 'Sankey',
+        disabled: false,
+        img: '/src/static/img/sankey.png',
+    },
 ];
 interface TableDescription {
     AttributeName: string;
@@ -94,9 +100,9 @@ export default class Start extends Component<{}, State, {}> {
         this.state = {
             current: 0,
             tables: [],
-            dataSource: this.handlGetDatasource(),
-            table: this.handleGetTable(),
-            chart: this.handleGetChart(),
+            dataSource: this.handleGet('dataSource'),
+            table: this.handleGet('table'),
+            chart: this.handleGet('chart'),
             tableDescription: [],
         };
     }
@@ -108,39 +114,11 @@ export default class Start extends Component<{}, State, {}> {
         this.setState({ current: this.state.current - 1 });
     };
 
-    handlGetDatasource = () => {
-        return localStorage.getItem('datasource') || '';
-    };
-
-    handleSetDatasource = (dataSource: string) => {
-        localStorage.setItem('datasource', dataSource);
-        this.setState({ ...this.state, dataSource });
-    };
-
-    handleRemoveDatasource = () => {
-        localStorage.removeItem('datasource');
-        this.setState({ ...this.state, dataSource: '' });
-    };
-
     handleGetTableNames = async (dataSource: string | null) => {
         if (dataSource === 'Dynamodb') {
             const tables = await listTables();
             this.setState({ current: this.state.current, tables: tables.TableNames || [] });
         }
-    };
-
-    handleGetTable = () => {
-        return localStorage.getItem('table') || '';
-    };
-
-    handleSetTable = (table: string) => {
-        localStorage.setItem('table', table);
-        this.setState({ ...this.state, table });
-    };
-
-    handleRemoveTable = () => {
-        localStorage.removeItem('table');
-        this.setState({ ...this.state, table: '', tableDescription: [] });
     };
 
     handleGetTableDescription = async (dataSource: string | null, table: string) => {
@@ -155,16 +133,17 @@ export default class Start extends Component<{}, State, {}> {
         } catch (error) {}
     };
 
-    handleGetChart = () => {
-        return localStorage.getItem('chart') || '';
+    handleGet = (key: string) => {
+        return localStorage.getItem(key) || '';
     };
-    handleSetChart = (chart: string) => {
-        localStorage.setItem('chart', chart);
-        this.setState({ ...this.state, chart });
+    handleSet = (key: string, value: any) => {
+        console.log(key, value);
+        localStorage.setItem(key, value);
+        this.setState({ ...this.state, [key]: value });
     };
-    handleRemoveChart = () => {
-        localStorage.removeItem('chart');
-        this.setState({ ...this.state, chart: '' });
+    handleRemove = (key: string) => {
+        localStorage.removeItem(key);
+        this.setState({ ...this.state, [key]: '' });
     };
 
     render() {
@@ -181,17 +160,11 @@ export default class Start extends Component<{}, State, {}> {
                 onNextCurrent={this.nextCurrent}
                 onPrevCurrent={this.prevCurrent}
                 current={this.state.current}
-                onGetDatasource={this.handlGetDatasource}
-                onSetDatasource={this.handleSetDatasource}
-                onRemoveDatasource={this.handleRemoveDatasource}
                 onGetTablenames={this.handleGetTableNames}
-                onGetTable={this.handleGetTable}
-                onSetTable={this.handleSetTable}
-                onRemoveTable={this.handleRemoveTable}
                 onGetTableDescription={this.handleGetTableDescription}
-                onGetChart={this.handleGetChart}
-                onSetChart={this.handleSetChart}
-                onRemoveChart={this.handleRemoveChart}
+                onGet={this.handleGet}
+                onSet={this.handleSet}
+                onRemove={this.handleRemove}
             ></StartComponent>
         );
     }

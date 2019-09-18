@@ -19,25 +19,18 @@ const customPanelStyle = {
 
 interface Props {
     charts: Array<{ name: string; displayName: string; disabled: boolean; img: string }>;
-    onGetChart: () => string;
-    onSetChart: (chart: string) => void;
-    onRemoveChart: () => void;
     chart: string;
     dataSource: string;
+    onGet: (key: string) => string;
+    onSet: (key: string, value: string) => void;
+    onRemove: (key: string) => void;
 }
-const ChartComponent: React.FunctionComponent<Props> = ({
-    charts,
-    chart,
-    onSetChart,
-    onRemoveChart,
-    onGetChart,
-    dataSource,
-}) => {
+const ChartComponent: React.FunctionComponent<Props> = ({ charts, chart, onRemove, onSet, dataSource }) => {
     const selectedChart = chart;
     const [activeKeys, setActiveKeys] = useState(['required', 'optional']);
 
     useEffect(() => {
-        onRemoveChart();
+        onRemove('chart');
     }, []);
 
     const OnChange = (key: string | Array<string>) => {
@@ -49,9 +42,9 @@ const ChartComponent: React.FunctionComponent<Props> = ({
             return;
         }
         if (selectedChart !== chart.name) {
-            onSetChart(chart.name);
+            onSet('chart', chart.name);
         } else {
-            onRemoveChart();
+            onRemove('chart');
         }
     };
     return (

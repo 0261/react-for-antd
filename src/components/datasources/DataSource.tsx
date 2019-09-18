@@ -11,16 +11,11 @@ interface DataSource {
 interface Props {
     dataSources: Array<DataSource>;
     dataSource: string;
-    onSetDatasource: (datasource: string) => void;
-    onRemoveDatasource: () => void;
+    onSet: (key: string, datasource: string) => void;
+    onRemove: (key: string) => void;
 }
 
-const DataSource: React.FunctionComponent<Props> = ({
-    dataSources,
-    onSetDatasource,
-    dataSource,
-    onRemoveDatasource,
-}) => {
+const DataSource: React.FunctionComponent<Props> = ({ dataSources, onSet, dataSource, onRemove }) => {
     const selectedKey = dataSource;
 
     const onSelect = (dataSource: DataSource) => {
@@ -35,9 +30,9 @@ const DataSource: React.FunctionComponent<Props> = ({
             return;
         }
         if (selectedKey !== dataSource.name) {
-            onSetDatasource(dataSource.name);
+            onSet('dataSource', dataSource.name);
         } else {
-            onRemoveDatasource();
+            onRemove('dataSource');
         }
     };
     return (

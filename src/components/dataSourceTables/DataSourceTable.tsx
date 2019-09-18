@@ -11,25 +11,25 @@ interface Props {
     table: string;
     tableDescription: Array<TableDescription>;
     onGetTablenames: (dataSource: string | null) => Promise<void>;
-    onGetTable: () => string;
-    onSetTable: (table: string) => void;
-    onRemoveTable: () => void;
     onGetTableDescription: (dataSource: string | null, table: string) => object;
+    onGet: (key: string) => string;
+    onSet: (key: string, value: string) => void;
+    onRemove: (key: string) => void;
 }
 const DataSourceTable: React.FunctionComponent<Props> = ({
     dataSource,
     tables,
     onGetTablenames,
-    onSetTable,
-    onGetTable,
-    onRemoveTable,
     table,
     onGetTableDescription,
     tableDescription,
+    onRemove,
+    onGet,
+    onSet,
 }) => {
     const selectedKey = table;
     useEffect(() => {
-        onRemoveTable();
+        onRemove('table');
         const fetchData = async () => {
             await onGetTablenames(dataSource);
         };
@@ -37,13 +37,13 @@ const DataSourceTable: React.FunctionComponent<Props> = ({
     }, []);
     const onSelect = (table: string) => {
         if (selectedKey !== table) {
-            onSetTable(table);
+            onSet('table', table);
             const fetchData = async () => {
                 await onGetTableDescription(dataSource, table);
             };
             fetchData();
         } else {
-            onRemoveTable();
+            onRemove('table');
         }
     };
     return (

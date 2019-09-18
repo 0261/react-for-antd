@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Dashboard.scss';
 import { Sankey } from '@nivo/sankey';
 import { Resizable, ResizableBox } from 'react-resizable';
@@ -90,16 +90,23 @@ const data = {
 
 interface Props {}
 const Dashboard: React.FunctionComponent<Props> = ({ children }) => {
+    const [width, setWidth] = useState(800);
+    const [height, setHeight] = useState(400);
     return (
         <div className={styles.dashboard}>
             <ResizableBox
-                width={1200}
-                height={400}
-                // minConstraints={[100, 100]} maxConstraints={[500, 300]}
+                onResize={(e, d) => {
+                    setWidth(d.size.width);
+                    setHeight(d.size.height);
+                }}
+                width={width}
+                height={height}
+                minConstraints={[window.innerWidth / 3, window.innerHeight / 3]}
+                maxConstraints={[window.innerWidth, window.innerHeight / 2]}
             >
                 <Sankey
-                    width={1200}
-                    height={400}
+                    width={width}
+                    height={height}
                     data={data}
                     margin={{ top: 40, right: 160, bottom: 40, left: 50 }}
                     align='start'

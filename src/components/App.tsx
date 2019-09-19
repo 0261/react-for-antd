@@ -1,5 +1,7 @@
 import React from 'react';
 import './Global.css';
+import '../../node_modules/react-grid-layout/css/styles.css';
+import '../../node_modules/react-resizable/css/styles.css';
 import { Switch, Route } from 'react-router-dom';
 import importedComponent from 'react-imported-component';
 const AsyncDashboard = importedComponent(() =>

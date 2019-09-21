@@ -124,7 +124,7 @@ export default class Start extends Component<{}, State, {}> {
     handleGetTableDescription = async (dataSource: string | null, table: string) => {
         try {
             if (dataSource === 'Dynamodb') {
-                const { KeySchema, tableName } = await getTableDescription(table);
+                const { KeySchema } = await getTableDescription(table);
                 this.setState({
                     ...this.state,
                     tableDescription: KeySchema,
@@ -137,7 +137,6 @@ export default class Start extends Component<{}, State, {}> {
         return localStorage.getItem(key) || '';
     };
     handleSet = (key: string, value: any) => {
-        console.log(key, value);
         localStorage.setItem(key, value);
         this.setState({ ...this.state, [key]: value });
     };

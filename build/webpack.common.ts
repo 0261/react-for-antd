@@ -1,11 +1,11 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
-import { output, root } from '../build/path';
+import { output, entry } from '../build/path';
 import webpack from 'webpack';
 
 export const common: webpack.Configuration = {
     entry: {
-        path: `${root}/index.tsx`,
+        path: `${entry}/index.tsx`,
         vendor: ['react', 'react-dom', 'react-router-dom', 'antd', 'aws-sdk'],
     },
     output: {

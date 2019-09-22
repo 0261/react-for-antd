@@ -77,19 +77,18 @@ export const common: webpack.Configuration = {
         }),
     ],
     optimization: {
-        runtimeChunk: false,
         splitChunks: {
+            chunks: 'all',
             cacheGroups: {
-                commons: {
+                vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
-                    chunks: 'all',
+                    priority: 1,
                 },
-                styles: {
-                    name: 'styles',
-                    test: /\.css$/,
-                    chunks: 'all',
-                    enforce: true,
+                reactBundle: {
+                    name: 'react.bundle',
+                    priority: 2,
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
                 },
             },
         },

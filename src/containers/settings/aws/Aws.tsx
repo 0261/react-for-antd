@@ -1,18 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import { Form, Input, Button, Icon, Alert, message } from 'antd';
-
 import { WrappedFormInternalProps } from 'antd/lib/form/Form';
 
-interface Props extends WrappedFormInternalProps {}
+import { AppState } from '../../../store';
+import { setAWSKey } from '../../../store/settings/aws/aws';
+
+interface Props extends WrappedFormInternalProps {
+    setAWSKey: typeof setAWSKey;
+    aws: {
+        accessKey: string;
+        secretKey: string;
+    };
+}
 interface FormValue {
-    accesskey: string | null;
-    secretkey: string | null;
+    accesskey: string;
+    secretkey: string;
 }
 class FormComponent extends React.Component<Props> {
-    state = {
-        accesskey: localStorage.getItem('accesskey'),
-        secretkey: localStorage.getItem('secretkey'),
-    };
     handleSubmit = (e: any) => {
         e.preventDefault();
         this.props.form.validateFields((err, values: FormValue) => {
@@ -25,17 +31,16 @@ class FormComponent extends React.Component<Props> {
     handleReset = (e: any) => {
         e.preventDefault();
         this.setKey({ accesskey: '', secretkey: '' });
-        this.setState({
-            accesskey: undefined,
-            secretkey: undefined,
-        });
         message.success('초기화 성공');
     };
-    setKey(values: FormValue) {
+
+    setKey = (values: FormValue) => {
         localStorage.setItem('accesskey', values.accesskey || '');
         localStorage.setItem('secretkey', values.secretkey || '');
-    }
-    render() {
+        this.props.setAWSKey(values.accesskey, values.secretkey);
+    };
+
+    render = () => {
         const { getFieldDecorator } = this.props.form;
         return (
             <div
@@ -55,7 +60,7 @@ class FormComponent extends React.Component<Props> {
                 <Form onSubmit={this.handleSubmit} onReset={this.handleReset} className='aws-permission-form'>
                     <Form.Item>
                         {getFieldDecorator('accesskey', {
-                            initialValue: this.state.accesskey,
+                            initialValue: this.props.aws.accessKey,
                             rules: [{ required: true, message: 'Please input your aws Access Key' }],
                         })(
                             <Input
@@ -66,7 +71,7 @@ class FormComponent extends React.Component<Props> {
                     </Form.Item>
                     <Form.Item>
                         {getFieldDecorator('secretkey', {
-                            initialValue: this.state.secretkey,
+                            initialValue: this.props.aws.secretKey,
                             rules: [{ required: true, message: 'Please input your Secret Key' }],
                         })(
                             <Input
@@ -88,7 +93,16 @@ class FormComponent extends React.Component<Props> {
                 </Form>
             </div>
         );
-    }
+    };
 }
 const AwsPermissionFormContainer = Form.create({ name: 'aws' })(FormComponent);
-export default AwsPermissionFormContainer;
+const mapStateToProps = (state: AppState) => ({
+    aws: state.aws,
+});
+const mpaDispatchToProps = (dispatch: Dispatch) => ({
+    setAWSKey: (accessKey: string, secretKey: string) => dispatch(setAWSKey(accessKey, secretKey)),
+});
+export default connect(
+    mapStateToProps,
+    mpaDispatchToProps,
+)(AwsPermissionFormContainer);

@@ -23,21 +23,24 @@ class FormComponent extends React.Component<Props> {
         e.preventDefault();
         this.props.form.validateFields((err, values: FormValue) => {
             if (!err) {
-                this.setKey(values);
+                this.props.setAWSKey(values.accesskey, values.secretkey);
+                this.props.form.setFieldsValue({
+                    accesskey: values.accesskey,
+                    secretkey: values.secretkey,
+                });
                 message.success('저장 성공');
             }
         });
     };
+
     handleReset = (e: any) => {
         e.preventDefault();
-        this.setKey({ accesskey: '', secretkey: '' });
+        this.props.setAWSKey('', '');
+        this.props.form.setFieldsValue({
+            accesskey: '',
+            secretkey: '',
+        });
         message.success('초기화 성공');
-    };
-
-    setKey = (values: FormValue) => {
-        localStorage.setItem('accesskey', values.accesskey || '');
-        localStorage.setItem('secretkey', values.secretkey || '');
-        this.props.setAWSKey(values.accesskey, values.secretkey);
     };
 
     render = () => {
@@ -64,6 +67,7 @@ class FormComponent extends React.Component<Props> {
                             rules: [{ required: true, message: 'Please input your aws Access Key' }],
                         })(
                             <Input
+                                value={this.props.aws.accessKey}
                                 prefix={<Icon type='key' style={{ color: 'rgba(0,0,0,.25)' }} />}
                                 placeholder='Access Key'
                             />,
@@ -75,6 +79,7 @@ class FormComponent extends React.Component<Props> {
                             rules: [{ required: true, message: 'Please input your Secret Key' }],
                         })(
                             <Input
+                                value={this.props.aws.secretKey}
                                 prefix={<Icon type='key' style={{ color: 'rgba(0,0,0,.25)' }} />}
                                 type='password'
                                 placeholder='Secret Key'

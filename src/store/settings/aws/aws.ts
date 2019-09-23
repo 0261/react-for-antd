@@ -30,6 +30,8 @@ const reducer = (state = initState, action: ActionTypes) => {
             case SET_AWS_KEY:
                 draft.accessKey = action.payload.accessKey;
                 draft.secretKey = action.payload.secretKey;
+                localStorage.setItem('accesskey', action.payload.accessKey);
+                localStorage.setItem('secretkey', action.payload.secretKey);
             default:
                 break;
         }

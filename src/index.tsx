@@ -7,6 +7,9 @@ import { rootReducer } from './store';
 import Root from './Root';
 import './styles/app.css';
 
+import '../node_modules/react-grid-layout/css/styles.css';
+import '../node_modules/react-resizable/css/styles.css';
+
 interface CustomWindow extends Window {
     __REDUX_DEVTOOLS_EXTENSION__: any;
 }

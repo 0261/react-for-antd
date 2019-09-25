@@ -1,17 +1,5 @@
-// import React, { useState } from 'react';
-// import styles from './Dashboard.scss';
-// import { Sankey } from '@nivo/sankey';
+import styles from './Dashboard.scss';
 import SankeyChart from '../charts/sankey/Sankey';
-// import { Resizable, ResizableBox } from 'react-resizable';
-// import { contains } from '@typemon/dynamodb-expression';
-
-// interface Props {}
-
-// const Dashboard: React.FunctionComponent<Props> = ({ children }) => {
-//     return <div className={styles.dashboard}>dashboard</div>;
-// };
-
-// export default Dashboard;
 const data = {
     nodes: [
         {
@@ -97,75 +85,35 @@ const data = {
         },
     ],
 };
-import React from 'react';
+import React, { useState } from 'react';
 import RGL, { WidthProvider } from 'react-grid-layout';
 
+const replacePxToBlank = (str: string) => {
+    return str.replace(/px/g, '');
+};
 const ReactGridLayout = WidthProvider(RGL);
 
-interface Props {
-    items: number;
-    onLayoutChange: (layout: Array<RGL.Layout>) => void;
-    rowHeight: number;
-    cols: number;
-    className: string;
-}
-interface State {
-    layout: Array<{
-        x: number;
-        y: number;
-        w: number;
-        h: number;
-        i: string;
-    }>;
-}
-class MessyLayout extends React.PureComponent<Props, State> {
-    static defaultProps = {
-        className: 'layout',
-        items: 20,
-        rowHeight: 30,
-        onLayoutChange: function() {},
-        cols: 12,
-    };
+//TODO 로컬스토리지에 저장된 데이터를 가지고 컴포넌트를 생산한다.
+// 예를 들어 로컬스토리지에 저장된 값이 11개라면 11개를 생성하고 각 엘리먼트가 어떤 차트를 쓰고 있는지
+// 그 데이터는 무엇인지에 따라 그려지는 값이 달라진다.
 
-    constructor(props: Props) {
-        super(props);
-        const layout = this.generateLayout();
-        this.state = { layout };
-    }
+const Layout: React.FC = () => {
+    const [line, setLine] = useState({ width: 600, height: 300 });
+    return (
+        <ReactGridLayout
+            onResizeStop={(a, b, c, d, mouseEvent, htmlElement) => {
+                const height = +replacePxToBlank(htmlElement.parentElement.style.height);
+                const width = +replacePxToBlank(htmlElement.parentElement.style.width);
+                setLine({ width, height });
+            }}
+        >
+            {[1].map(i => (
+                <div key={i}>
+                    <SankeyChart data={data} width={line.width} height={line.height}></SankeyChart>
+                </div>
+            ))}
+        </ReactGridLayout>
+    );
+};
 
-    generateDOM() {
-        return [1, 2, 3, 4, 5, 67, 8, 9, 10, 12, 32, 36456, 456, 457].map(i => (
-            <div key={i}>
-                <span className='text'>{i}</span>
-            </div>
-        ));
-    }
-
-    generateLayout() {
-        return [1, 2, 3, 4, 5, 67, 8, 9, 10, 12, 32, 36456, 456, 457].map(function(i) {
-            const w = Math.ceil(Math.random() * 4);
-            const y = Math.ceil(Math.random() * 4) + 1;
-            return {
-                x: (i * 2) % 12,
-                y: Math.floor(i / 6) * y,
-                w: w,
-                h: y,
-                i: i.toString(),
-            };
-        });
-    }
-
-    onLayoutChange(layout: Array<RGL.Layout>) {
-        this.props.onLayoutChange(layout);
-    }
-
-    render() {
-        return (
-            <ReactGridLayout layout={this.state.layout} onLayoutChange={this.onLayoutChange} {...this.props}>
-                {this.generateDOM()}
-            </ReactGridLayout>
-        );
-    }
-}
-
-export default MessyLayout;
+export default Layout;

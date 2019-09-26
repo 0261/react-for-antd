@@ -4,7 +4,6 @@
     "description": "",
     "main": "index.js",
     "dependencies": {
-        "@babel/runtime": "^7.6.0",
         "@nivo/pie": "^0.59.1",
         "@nivo/sankey": "^0.59.1",
         "@typemon/dynamodb-expression": "^3.0.2",
@@ -13,13 +12,14 @@
         "chalk": "^2.4.2",
         "react": "^16.9.0",
         "react-dom": "^16.9.0",
-        "react-grid-layout": "^0.16.6",
+        "react-draggable": "^4.0.3",
         "react-redux": "^7.1.1",
         "react-resizable": "^1.8.0",
         "react-router-dom": "^5.0.1",
         "redux": "^4.0.4"
     },
     "devDependencies": {
+        "@babel/runtime": "^7.6.0",
         "@babel/core": "^7.5.5",
         "@babel/plugin-proposal-class-properties": "^7.5.5",
         "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
@@ -34,7 +34,6 @@
         "@types/node": "^12.7.4",
         "@types/node-sass": "^4.11.0",
         "@types/react-dom": "^16.9.0",
-        "@types/react-grid-layout": "^0.16.7",
         "@types/react-redux": "^7.1.2",
         "@types/react-resizable": "^1.7.1",
         "@types/react-router-dom": "^4.3.5",
